@@ -1,9 +1,9 @@
 {
   "name": "@repo/zod",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-   "scripts": {
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
     "build": "tsc",
     "dev": "tsc --watch" 
   },
@@ -15,7 +15,8 @@
     }
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.0.0"
   },
   "dependencies": {
     "zod": "^3.22.4"

@@ -5,7 +5,6 @@ import { RoomManager } from "@repo/room-manager";
 import { GameMode, RoomType } from "@repo/types";
 import { redis, RedisKeys } from "@repo/redis";
 import { BattleManager } from "@repo/battle-logic";
-import { string } from "yup";
 const roomManager = new RoomManager();
 
 

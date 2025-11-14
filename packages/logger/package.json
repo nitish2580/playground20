@@ -1,8 +1,8 @@
 {
   "name": "@repo/logger",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch"
@@ -27,6 +27,7 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/logform": "^1.10.1",
-    "logform": "^2.7.0"
+    "logform": "^2.7.0",
+    "typescript": "^5.0.0"
   }
 }

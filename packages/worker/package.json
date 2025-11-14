@@ -2,7 +2,8 @@
   "name": "@repo/worker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch"
@@ -15,6 +16,9 @@
     "@repo/types": "workspace:*",
     "@repo/zod": "workspace:*",
     "@types/uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
   },
   "exports": {
     ".": {

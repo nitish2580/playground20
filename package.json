@@ -2,6 +2,7 @@
   "name": "with-tailwind",
   "private": true,
   "scripts": {
+    "postinstall": "turbo run build",
     "dev": "./dev.sh",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
@@ -19,10 +20,6 @@
     "node": ">=18"
   },
   "packageManager": "pnpm@9.12.3",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "dependencies": {
     "@types/nodemailer": "^6.4.17",
     "clsx": "^2.1.1",

@@ -285,6 +285,9 @@ importers:
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
   packages/db:
     dependencies:
@@ -362,6 +365,9 @@ importers:
       logform:
         specifier: ^2.7.0
         version: 2.7.0
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
   packages/redis:
     dependencies:
@@ -402,6 +408,10 @@ importers:
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
   packages/tailwind-config:
     devDependencies:
@@ -420,6 +430,9 @@ importers:
       '@types/react':
         specifier: ^18 || ^19
         version: 19.1.0
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
   packages/typescript-config: {}
 
@@ -489,6 +502,10 @@ importers:
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
   packages/zod:
     dependencies:
@@ -499,6 +516,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
 packages:
 
