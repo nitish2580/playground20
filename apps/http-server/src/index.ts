@@ -44,5 +44,5 @@ app.use('/api/v1', mainRouter)
 app.use(errorHandler)
 
 app.listen(PORT,()=>{
-    console.log('Working')
+    console.log('listening on port', PORT)
 })

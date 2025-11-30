@@ -2,7 +2,7 @@
 // import { broadcastToRoom } from "../../utils/broadcast";
 // import { redis } from "@repo/redis";
 // import { GameState, GameMode, RoomSettings } from "../types";
-// import { battleLogger } from "@repo/logger";
+import { battleLogger } from "@repo/logger";
 import { redis, RedisKeys } from "@repo/redis"
 import { WebSocketServer, WebSocket } from "ws";
 import { RoomManager } from "@repo/room-manager";
@@ -211,38 +211,43 @@ export class BattleManager {
         this.timers.delete(roomId);
     }
 
+    private async getRoomMode(roomId: string): Promise<string> {
+        return ""
+    }
+
     async handleAnswer(roomId: string, userId: string, selectedOption: string) {
+        const roomSettings = await this.roomManager.getRoomSettings(roomId);
         const state = await redis.get(`game:${roomId}:state`);
         if (state !== GameState.QUESTION) return;
 
-        const questionId = this.currentQuestionId.get(roomId);
-        if (!questionId) return;
+        const gameMetaData: {questionId: string, round: string, correctOption: string} = await redis.hgetall(`game:${roomId}:meta`)
+        if (!gameMetaData?.questionId) return;
 
         const questionStart = this.questionStartTime.get(roomId) || Date.now();
         const serverTime = Date.now();
         const timeTakenMs = serverTime - questionStart;
 
-        const question = await this.getQuestionById(questionId);
-        const isCorrect = question.correctOption === selectedOption;
+
+        const isCorrect = gameMetaData.correctOption === selectedOption;
 
         if (isCorrect) {
             const baseScore = 1000 - (timeTakenMs / 45000) * 900;
             const difficulty = await this.getTargetDifficulty(
                 roomId,
-                parseInt(await redis.get(`game:${roomId}:round`)),
-                await this.getRoomMode(roomId)
+                parseInt(gameMetaData?.round || "1"),
+                roomSettings?.gameMode,
             );
             const finalScore = Math.max(100, Math.floor(baseScore * (1 + (difficulty - 1) * 0.25)));
 
             await redis.zincrby(`game:${roomId}:scores`, finalScore, userId);
-            await redis.hset(`game:${roomId}:answers`, userId, timeTakenMs);
+            await redis.hset(`game:${roomId}:answers`, userId, timeTakenMs.toString());
         }
 
         // Record answer in DB (would be an API call in production)
         battleLogger.debug('Answer recorded', {
             userId,
             roomId,
-            questionId,
+            questionId: gameMetaData?.questionId,
             isCorrect,
             timeTakenMs
         });

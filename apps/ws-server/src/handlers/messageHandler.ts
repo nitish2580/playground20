@@ -5,8 +5,6 @@ import { RoomManager } from "@repo/room-manager";
 import { GameMode, MessageType, RoomType } from "@repo/types";
 import { redis, RedisKeys } from "@repo/redis";
 import { BattleManager } from "../battle/manager/battle.manager";
-// import { BattleManager } from "@repo/battle-logic";
-import { string } from "yup";
 const roomManager = new RoomManager();
 
 
@@ -31,12 +29,8 @@ export async function handleMessage(
             break;
         case MessageType.ANSWER:
             console.log("answer");
-            // await battleManager.handleAnswer(
-            //     ws.roomId!,
-            //     ws.userId,
-            //     message.payload.selectedOption
-            // );
-            break;
+            await handleAnswer(ws, wss, message.payload);
+          break;
         default:
             battleLogger.warn("Unknown message type", {
                 type: message.type,
@@ -175,6 +169,7 @@ const handleAnswer = async (ws: WebSocket & { userId?: string; roomId?: string }
     if (!ws.userId || !ws.roomId) return;
 
     const { selectedOption } = payload;
+    console.log("🚀 ~ handleAnswer ~ selectedOption:", selectedOption)
     const timestamp = Date.now();
     const { userId, roomId } = ws;
 
@@ -197,9 +192,11 @@ const handleAnswer = async (ws: WebSocket & { userId?: string; roomId?: string }
 
 
     const isCorrect = gameMetaData?.correctOption === selectedOption;
+    console.log("🚀 ~ handleAnswer ~ isCorrect:", isCorrect)
 
     if (isCorrect) {
         const baseScore = 1000 - (timeTakenMs / 45000) * 900;
+        console.log("🚀 ~ handleAnswer ~ baseScore:", baseScore)
 
         // const roomSettings = await this.roomManager.getRoomSettings(roomId);
         let finalScore = Math.max(100, Math.floor(baseScore));

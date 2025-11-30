@@ -1,17 +1,17 @@
+// cspell:disable
 export enum MessageType {
     JOIN = "JOIN",
     READY = "READY",
     START = "START",
     QUESTION = "QUESTION",
-    ANSWER = "ANSER",
+    ANSWER = "ANSWER",
     RESULTS = "RESULTS",
     ELIMINATED = "ELIMINATED",
     END = "END",
-    ERROR = "ERROr",
+    ERROR = "ERROR",
     ROUND_START = "ROUND_START",
     ROUND_END = "ROUND_END",
     GAME_END = "GAME_END",
     PLAYER_LEAVE = "PLAYER_LEAVE",
-    END_QUESTION = "END_QUESTION",
     ANSWER_CONFIRMED = "ANSWER_CONFIRMED",
 }
